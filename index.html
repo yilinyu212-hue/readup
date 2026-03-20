@@ -1,0 +1,1219 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ReadUp — 学术英语阅读训练</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:        #f5f2ec;
+  --bg2:       #edeae2;
+  --white:     #ffffff;
+  --border:    #ddd8ce;
+  --text:      #1a1814;
+  --text-mid:  #5a5650;
+  --text-soft: #9a958e;
+
+  /* Color blocks */
+  --blue:      #dbeafe;
+  --blue-b:    #93c5fd;
+  --blue-t:    #1e40af;
+  --green:     #dcfce7;
+  --green-b:   #86efac;
+  --green-t:   #166534;
+  --amber:     #fef3c7;
+  --amber-b:   #fcd34d;
+  --amber-t:   #92400e;
+  --rose:      #ffe4e6;
+  --rose-b:    #fda4af;
+  --rose-t:    #9f1239;
+  --purple:    #ede9fe;
+  --purple-b:  #c4b5fd;
+  --purple-t:  #5b21b6;
+  --teal:      #ccfbf1;
+  --teal-b:    #5eead4;
+  --teal-t:    #134e4a;
+
+  --radius:    14px;
+  --shadow:    0 2px 12px rgba(0,0,0,0.07);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.10);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* ── HEADER ── */
+header {
+  background: var(--white);
+  border-bottom: 1.5px solid var(--border);
+  padding: 0 32px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  box-shadow: 0 1px 0 var(--border);
+}
+
+.logo {
+  font-family: 'Lora', serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.logo-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: #2563eb;
+  display: inline-block;
+}
+
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.nav-btn {
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  color: var(--text-mid);
+  transition: all 0.18s;
+  font-family: inherit;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.nav-btn:hover { background: var(--bg2); color: var(--text); }
+.nav-btn.active { background: var(--blue); color: var(--blue-t); }
+.nav-btn .badge {
+  background: var(--rose);
+  color: var(--rose-t);
+  border-radius: 10px;
+  font-size: 11px;
+  padding: 1px 6px;
+  font-weight: 600;
+}
+
+/* ── MAIN ── */
+main {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 36px 24px 80px;
+}
+
+/* ── SCREENS ── */
+.screen { display: none; }
+.screen.active { display: block; animation: fadeUp 0.35s ease; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ══════════════════════════════════
+   HOME SCREEN
+══════════════════════════════════ */
+.home-hero {
+  background: var(--white);
+  border-radius: var(--radius);
+  border: 1.5px solid var(--border);
+  padding: 48px 48px 40px;
+  margin-bottom: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  overflow: hidden;
+  position: relative;
+}
+.home-hero::before {
+  content: '';
+  position: absolute;
+  right: -60px; top: -60px;
+  width: 280px; height: 280px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--blue) 0%, transparent 70%);
+  opacity: 0.6;
+}
+.hero-text h1 {
+  font-family: 'Lora', serif;
+  font-size: clamp(28px, 4vw, 44px);
+  line-height: 1.2;
+  margin-bottom: 12px;
+  letter-spacing: -0.5px;
+}
+.hero-text h1 em { font-style: italic; color: #2563eb; }
+.hero-text p {
+  color: var(--text-mid);
+  font-size: 15px;
+  line-height: 1.7;
+  max-width: 440px;
+  font-weight: 400;
+}
+.hero-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 20px;
+}
+.hero-badge {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* Level selector */
+.level-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+.level-label { font-size: 13px; color: var(--text-soft); font-weight: 500; margin-right: 4px; }
+.level-pill {
+  padding: 7px 18px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1.5px solid var(--border);
+  background: var(--white);
+  color: var(--text-mid);
+  transition: all 0.18s;
+  font-family: inherit;
+}
+.level-pill:hover { border-color: #93c5fd; color: #1e40af; background: var(--blue); }
+.level-pill.active-SAT  { background: var(--blue);   border-color: var(--blue-b);   color: var(--blue-t);   }
+.level-pill.active-TOEFL{ background: var(--teal);   border-color: var(--teal-b);   color: var(--teal-t);   }
+.level-pill.active-AP   { background: var(--purple); border-color: var(--purple-b); color: var(--purple-t); }
+.level-pill.active-IB   { background: var(--amber);  border-color: var(--amber-b);  color: var(--amber-t);  }
+
+.section-head {
+  font-size: 12px;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-soft);
+  margin-bottom: 16px;
+}
+
+.topic-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 12px;
+}
+
+.topic-card {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 22px 20px;
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+.topic-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); border-color: #93c5fd; }
+.topic-card .t-icon { font-size: 30px; margin-bottom: 10px; }
+.topic-card .t-name { font-size: 14px; font-weight: 700; margin-bottom: 3px; }
+.topic-card .t-sub  { font-size: 12px; color: var(--text-soft); }
+.topic-card .t-diff {
+  position: absolute; top: 14px; right: 14px;
+  font-size: 10px; font-weight: 700;
+  padding: 3px 9px; border-radius: 12px;
+  font-family: 'JetBrains Mono', monospace;
+}
+.d-SAT   { background: var(--blue);   color: var(--blue-t);   }
+.d-TOEFL { background: var(--teal);   color: var(--teal-t);   }
+.d-AP    { background: var(--purple); color: var(--purple-t); }
+.d-IB    { background: var(--amber);  color: var(--amber-t);  }
+
+/* ══════════════════════════════════
+   READING SCREEN
+══════════════════════════════════ */
+.reading-layout {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 20px;
+  align-items: start;
+}
+
+/* PASSAGE CARD */
+.passage-card {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+.passage-header {
+  background: var(--bg2);
+  border-bottom: 1.5px solid var(--border);
+  padding: 18px 28px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+.passage-header-left { flex: 1; }
+.passage-title {
+  font-family: 'Lora', serif;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.3;
+  margin-bottom: 8px;
+}
+.passage-title-zh {
+  font-size: 13px;
+  color: var(--text-mid);
+  margin-bottom: 10px;
+  font-style: italic;
+}
+.meta-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.meta-tag {
+  font-size: 11px;
+  padding: 3px 10px;
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+.toggle-bilingual-btn {
+  flex-shrink: 0;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1.5px solid var(--border);
+  background: var(--white);
+  color: var(--text-mid);
+  transition: all 0.18s;
+  font-family: inherit;
+  white-space: nowrap;
+}
+.toggle-bilingual-btn.on { background: var(--green); border-color: var(--green-b); color: var(--green-t); }
+
+.passage-body-wrap { padding: 28px; }
+
+.passage-body {
+  font-size: 15.5px;
+  line-height: 1.9;
+  color: #2a2820;
+  font-weight: 400;
+}
+.passage-body p { margin-bottom: 20px; }
+.passage-body p:last-child { margin-bottom: 0; }
+
+/* Bilingual paragraph */
+.para-zh {
+  display: none;
+  font-size: 13.5px;
+  line-height: 1.75;
+  color: var(--text-mid);
+  background: var(--bg);
+  border-left: 3px solid var(--green-b);
+  padding: 10px 14px;
+  border-radius: 0 8px 8px 0;
+  margin-top: -12px;
+  margin-bottom: 20px;
+  font-style: italic;
+}
+.bilingual-on .para-zh { display: block; }
+
+/* Vocab */
+.vocab-word {
+  border-bottom: 2px solid var(--amber-b);
+  cursor: pointer;
+  color: var(--amber-t);
+  transition: background 0.15s;
+  border-radius: 2px;
+  padding: 0 1px;
+}
+.vocab-word:hover { background: var(--amber); }
+
+/* ── QUESTION PANEL ── */
+.question-panel {
+  position: sticky;
+  top: 76px;
+}
+
+.panel-card {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.panel-header {
+  background: var(--bg2);
+  border-bottom: 1.5px solid var(--border);
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.panel-title { font-size: 12px; font-family: 'JetBrains Mono', monospace; letter-spacing: 1px; color: var(--text-soft); text-transform: uppercase; }
+.q-counter { font-size: 13px; font-weight: 700; color: #2563eb; }
+
+/* Progress dots */
+.progress-dots {
+  display: flex; gap: 5px; padding: 12px 20px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg);
+}
+.dot {
+  flex: 1; height: 5px; border-radius: 3px;
+  background: var(--border);
+  transition: background 0.3s;
+}
+.dot.current  { background: #93c5fd; }
+.dot.correct  { background: #86efac; }
+.dot.wrong    { background: #fda4af; }
+
+.panel-body { padding: 22px 20px; }
+
+/* Loading */
+.loading-state { text-align: center; padding: 40px 16px; color: var(--text-soft); }
+.spinner {
+  width: 28px; height: 28px;
+  border: 2.5px solid var(--border);
+  border-top-color: #2563eb;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  margin: 0 auto 12px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.q-type-tag {
+  font-size: 10px; font-weight: 700;
+  padding: 2px 8px; border-radius: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  margin-bottom: 10px;
+  display: inline-block;
+}
+.question-text { font-size: 14.5px; line-height: 1.65; font-weight: 600; margin-bottom: 16px; color: var(--text); }
+.question-text-zh { font-size: 12.5px; line-height: 1.6; color: var(--text-mid); margin-bottom: 16px; font-style: italic; display: none; }
+.bilingual-on .question-text-zh { display: block; }
+
+.options { display: flex; flex-direction: column; gap: 7px; }
+.option {
+  padding: 11px 15px;
+  border: 1.5px solid var(--border);
+  border-radius: 9px;
+  font-size: 13.5px;
+  line-height: 1.5;
+  cursor: pointer;
+  background: var(--bg);
+  color: var(--text);
+  text-align: left;
+  font-family: inherit;
+  transition: all 0.18s;
+  font-weight: 400;
+}
+.option:hover:not(:disabled) { border-color: #93c5fd; background: var(--blue); color: var(--blue-t); }
+.option.selected { border-color: #93c5fd; background: var(--blue); color: var(--blue-t); }
+.option.correct  { border-color: var(--green-b); background: var(--green); color: var(--green-t); font-weight: 600; }
+.option.wrong    { border-color: var(--rose-b); background: var(--rose); color: var(--rose-t); }
+.option:disabled { cursor: default; }
+
+.explanation {
+  margin-top: 14px;
+  padding: 13px 15px;
+  background: var(--amber);
+  border: 1px solid var(--amber-b);
+  border-radius: 9px;
+  font-size: 13px;
+  line-height: 1.65;
+  color: var(--amber-t);
+  display: none;
+}
+.explanation.show { display: block; }
+.explanation strong { display: block; margin-bottom: 4px; font-weight: 700; }
+
+/* Save vocab btn inside explanation */
+.save-vocab-row { margin-top: 10px; display: flex; gap: 6px; flex-wrap: wrap; }
+.save-word-btn {
+  font-size: 11px; padding: 3px 10px; border-radius: 8px;
+  border: 1.5px solid var(--amber-b); background: var(--white);
+  cursor: pointer; font-family: inherit; color: var(--amber-t); font-weight: 600;
+  transition: all 0.15s;
+}
+.save-word-btn:hover { background: var(--amber-b); }
+
+.nav-row { display: flex; gap: 8px; margin-top: 16px; }
+.btn {
+  flex: 1; padding: 10px; border-radius: 9px;
+  font-size: 13px; font-weight: 600;
+  cursor: pointer; border: 1.5px solid var(--border);
+  background: var(--bg); color: var(--text-mid);
+  transition: all 0.18s; font-family: inherit;
+}
+.btn:hover:not(:disabled) { border-color: #93c5fd; color: #1e40af; background: var(--blue); }
+.btn:disabled { opacity: 0.35; cursor: default; }
+.btn-primary {
+  background: #2563eb; border-color: #2563eb;
+  color: white; flex: 2;
+}
+.btn-primary:hover:not(:disabled) { background: #1d4ed8; border-color: #1d4ed8; }
+
+/* Score */
+.score-card { text-align: center; padding: 24px 16px; }
+.score-ring {
+  width: 88px; height: 88px; border-radius: 50%;
+  border: 3px solid #2563eb;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 16px;
+  font-family: 'Lora', serif; font-size: 28px; color: #2563eb;
+  background: var(--blue);
+}
+.score-breakdown {
+  display: flex; gap: 8px; justify-content: center; margin-bottom: 20px; flex-wrap: wrap;
+}
+.score-chip {
+  padding: 4px 12px; border-radius: 12px;
+  font-size: 12px; font-weight: 600;
+}
+
+/* Back btn */
+.back-btn {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 13px; color: var(--text-mid);
+  cursor: pointer; margin-bottom: 20px;
+  background: none; border: none; font-family: inherit;
+  transition: color 0.18s; font-weight: 500;
+}
+.back-btn:hover { color: #2563eb; }
+
+/* ══════════════════════════════════
+   VOCAB BOOK SCREEN
+══════════════════════════════════ */
+.vocab-screen-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 24px;
+}
+.vocab-screen-header h2 { font-family: 'Lora', serif; font-size: 26px; }
+.clear-btn {
+  padding: 7px 16px; border-radius: 8px; font-size: 13px; font-weight: 600;
+  cursor: pointer; border: 1.5px solid var(--rose-b); background: var(--rose);
+  color: var(--rose-t); font-family: inherit; transition: all 0.15s;
+}
+.clear-btn:hover { background: var(--rose-b); }
+
+.vocab-empty { text-align: center; padding: 80px 20px; color: var(--text-soft); }
+.vocab-empty .empty-icon { font-size: 48px; margin-bottom: 16px; }
+
+.vocab-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 12px;
+}
+.vocab-item {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  position: relative;
+}
+.vocab-item .v-word { font-size: 18px; font-weight: 700; margin-bottom: 3px; color: var(--amber-t); }
+.vocab-item .v-pos  { font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--text-soft); margin-bottom: 6px; }
+.vocab-item .v-def  { font-size: 13px; color: var(--text-mid); line-height: 1.5; }
+.vocab-item .v-from { font-size: 11px; color: var(--text-soft); margin-top: 8px; border-top: 1px solid var(--border); padding-top: 7px; }
+.vocab-del {
+  position: absolute; top: 12px; right: 12px;
+  width: 22px; height: 22px; border-radius: 50%;
+  border: 1px solid var(--border); background: var(--bg);
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  font-size: 12px; color: var(--text-soft); transition: all 0.15s;
+}
+.vocab-del:hover { background: var(--rose); border-color: var(--rose-b); color: var(--rose-t); }
+
+/* ══════════════════════════════════
+   WRONG REVIEW SCREEN
+══════════════════════════════════ */
+.review-screen-header {
+  display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px;
+}
+.review-screen-header h2 { font-family: 'Lora', serif; font-size: 26px; }
+
+.review-empty { text-align: center; padding: 80px 20px; color: var(--text-soft); }
+.review-empty .empty-icon { font-size: 48px; margin-bottom: 16px; }
+
+.review-list { display: flex; flex-direction: column; gap: 16px; }
+
+.review-card {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.review-card-header {
+  background: var(--rose);
+  border-bottom: 1.5px solid var(--rose-b);
+  padding: 12px 20px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.review-card-header .rc-topic { font-size: 12px; font-weight: 700; color: var(--rose-t); }
+.review-card-header .rc-level { font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--rose-t); opacity: 0.7; }
+.review-card-body { padding: 20px; }
+.rc-question { font-size: 14.5px; font-weight: 600; margin-bottom: 14px; line-height: 1.5; }
+.rc-question-zh { font-size: 13px; color: var(--text-mid); margin-bottom: 14px; font-style: italic; }
+.rc-options { display: flex; flex-direction: column; gap: 7px; }
+.rc-option {
+  padding: 10px 14px; border-radius: 8px; font-size: 13.5px; line-height: 1.5;
+  border: 1.5px solid var(--border); background: var(--bg); color: var(--text); font-weight: 400;
+}
+.rc-option.was-wrong  { border-color: var(--rose-b); background: var(--rose); color: var(--rose-t); }
+.rc-option.is-correct { border-color: var(--green-b); background: var(--green); color: var(--green-t); font-weight: 600; }
+.rc-expl {
+  margin-top: 14px; padding: 13px 15px;
+  background: var(--amber); border: 1px solid var(--amber-b);
+  border-radius: 9px; font-size: 13px; line-height: 1.65; color: var(--amber-t);
+}
+.rc-del-btn {
+  margin-top: 12px;
+  padding: 6px 16px; border-radius: 8px; font-size: 12px; font-weight: 600;
+  cursor: pointer; border: 1.5px solid var(--rose-b); background: var(--white);
+  color: var(--rose-t); font-family: inherit; transition: all 0.15s;
+}
+.rc-del-btn:hover { background: var(--rose); }
+
+/* ── VOCAB TOOLTIP ── */
+.tooltip {
+  position: fixed;
+  background: var(--white);
+  border: 1.5px solid var(--amber-b);
+  border-radius: 10px;
+  padding: 12px 16px;
+  max-width: 240px;
+  font-size: 13px;
+  line-height: 1.6;
+  z-index: 999;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.12s;
+  box-shadow: var(--shadow-lg);
+}
+.tooltip.show { opacity: 1; }
+.tooltip .t-word { font-weight: 700; font-size: 15px; color: var(--amber-t); margin-bottom: 2px; }
+.tooltip .t-pos  { font-size: 10px; font-family: 'JetBrains Mono', monospace; color: var(--text-soft); margin-bottom: 5px; }
+.tooltip .t-save {
+  display: inline-block; margin-top: 8px;
+  font-size: 11px; padding: 3px 10px; border-radius: 6px;
+  border: 1.5px solid var(--amber-b); background: var(--amber);
+  color: var(--amber-t); cursor: pointer; font-family: inherit; font-weight: 600;
+  pointer-events: all;
+}
+
+/* Responsive */
+@media (max-width: 800px) {
+  .reading-layout { grid-template-columns: 1fr; }
+  .question-panel { position: static; }
+  header { padding: 0 16px; }
+  main { padding: 20px 14px 60px; }
+  .home-hero { padding: 28px 24px; }
+  .hero-text h1 { font-size: 26px; }
+  .passage-body-wrap { padding: 20px; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo"><span class="logo-dot"></span> ReadUp</div>
+  <div class="header-nav">
+    <button class="nav-btn active" id="nav-home" onclick="showScreen('home')">📚 练习</button>
+    <button class="nav-btn" id="nav-vocab" onclick="showScreen('vocab')">⭐ 生词本 <span class="badge" id="vocab-count">0</span></button>
+    <button class="nav-btn" id="nav-review" onclick="showScreen('review')">❌ 错题 <span class="badge" id="wrong-count">0</span></button>
+  </div>
+</header>
+
+<main>
+
+<!-- ── HOME ── -->
+<div class="screen active" id="screen-home">
+  <div class="home-hero">
+    <div class="hero-text">
+      <h1>练好学术英语<br><em>读懂顶尖文章</em></h1>
+      <p>AI 实时生成文章与题目，支持中英双语对照，自动积累生词与错题。</p>
+      <div class="hero-badges">
+        <span class="hero-badge" style="background:var(--blue);color:var(--blue-t)">SAT</span>
+        <span class="hero-badge" style="background:var(--teal);color:var(--teal-t)">TOEFL</span>
+        <span class="hero-badge" style="background:var(--purple);color:var(--purple-t)">AP</span>
+        <span class="hero-badge" style="background:var(--amber);color:var(--amber-t)">IB</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="level-row">
+    <span class="level-label">难度等级：</span>
+    <button class="level-pill active-SAT" data-level="SAT" onclick="setLevel(this)">SAT</button>
+    <button class="level-pill" data-level="TOEFL" onclick="setLevel(this)">TOEFL</button>
+    <button class="level-pill" data-level="AP" onclick="setLevel(this)">AP</button>
+    <button class="level-pill" data-level="IB" onclick="setLevel(this)">IB</button>
+  </div>
+
+  <div class="section-head">选择主题 — 开始阅读练习</div>
+  <div class="topic-grid" id="topic-grid"></div>
+</div>
+
+<!-- ── READING ── -->
+<div class="screen" id="screen-reading">
+  <button class="back-btn" onclick="showScreen('home')">← 返回主页</button>
+  <div class="reading-layout">
+    <div class="passage-card">
+      <div class="passage-header">
+        <div class="passage-header-left">
+          <div class="passage-title" id="p-title">Loading…</div>
+          <div class="passage-title-zh" id="p-title-zh"></div>
+          <div class="meta-tags" id="p-meta"></div>
+        </div>
+        <button class="toggle-bilingual-btn" id="bilingual-btn" onclick="toggleBilingual()">中英双语 OFF</button>
+      </div>
+      <div class="passage-body-wrap">
+        <div class="passage-body" id="p-body"></div>
+      </div>
+    </div>
+
+    <div class="question-panel">
+      <div class="panel-card">
+        <div class="panel-header">
+          <span class="panel-title">Questions</span>
+          <span class="q-counter" id="q-counter">— / —</span>
+        </div>
+        <div class="progress-dots" id="progress-dots"></div>
+        <div class="panel-body" id="panel-body">
+          <div class="loading-state"><div class="spinner"></div><div>AI 正在生成文章与题目…</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── VOCAB BOOK ── -->
+<div class="screen" id="screen-vocab">
+  <div class="vocab-screen-header">
+    <h2>⭐ 生词本</h2>
+    <button class="clear-btn" onclick="clearVocab()">清空全部</button>
+  </div>
+  <div id="vocab-content"></div>
+</div>
+
+<!-- ── WRONG REVIEW ── -->
+<div class="screen" id="screen-review">
+  <div class="review-screen-header">
+    <h2>❌ 错题回顾</h2>
+    <button class="clear-btn" onclick="clearWrong()">清空全部</button>
+  </div>
+  <div id="review-content"></div>
+</div>
+
+</main>
+
+<div class="tooltip" id="tooltip"></div>
+
+<script>
+// ══════════════════════════════════
+// STATE
+// ══════════════════════════════════
+const TOPICS = [
+  { id:'science',     icon:'🔬', name:'Science & Biology',  nameZh:'科学·生命科学', diff:'AP'    },
+  { id:'history',     icon:'🏛️', name:'World History',      nameZh:'历史·人文',     diff:'IB'    },
+  { id:'economy',     icon:'📈', name:'Economics',          nameZh:'经济学·社会',   diff:'SAT'   },
+  { id:'literature',  icon:'📖', name:'Literature & Arts',  nameZh:'文学·艺术',     diff:'IB'    },
+  { id:'environment', icon:'🌍', name:'Environment',        nameZh:'环境·政策',     diff:'TOEFL' },
+  { id:'technology',  icon:'⚙️', name:'Technology & AI',   nameZh:'科技·伦理',     diff:'AP'    },
+  { id:'psychology',  icon:'🧠', name:'Psychology',         nameZh:'心理学·行为',   diff:'SAT'   },
+  { id:'philosophy',  icon:'💡', name:'Philosophy',         nameZh:'哲学·逻辑',     diff:'IB'    },
+];
+
+let currentLevel  = 'SAT';
+let currentTopic  = null;
+let bilingualOn   = false;
+let questions     = [];
+let currentQ      = 0;
+let answers       = {};   // {idx: optionIdx}
+let scores        = {};   // {idx: bool}
+
+// Persistent storage
+function load(key) { try { return JSON.parse(localStorage.getItem(key)) || []; } catch { return []; } }
+function save(key, val) { localStorage.setItem(key, JSON.stringify(val)); }
+let vocabBook  = load('readup_vocab');
+let wrongItems = load('readup_wrong');
+
+// ══════════════════════════════════
+// SCREENS
+// ══════════════════════════════════
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('screen-' + id).classList.add('active');
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  const navMap = { home: 'nav-home', vocab: 'nav-vocab', review: 'nav-review' };
+  if (navMap[id]) document.getElementById(navMap[id]).classList.add('active');
+  if (id === 'vocab')  renderVocab();
+  if (id === 'review') renderReview();
+  updateBadges();
+  window.scrollTo(0, 0);
+}
+
+function updateBadges() {
+  document.getElementById('vocab-count').textContent = vocabBook.length;
+  document.getElementById('wrong-count').textContent = wrongItems.length;
+}
+
+// ══════════════════════════════════
+// HOME
+// ══════════════════════════════════
+function renderHome() {
+  document.getElementById('topic-grid').innerHTML = TOPICS.map(t => `
+    <div class="topic-card" onclick="startReading('${t.id}')">
+      <span class="t-diff d-${t.diff}">${t.diff}</span>
+      <div class="t-icon">${t.icon}</div>
+      <div class="t-name">${t.name}</div>
+      <div class="t-sub">${t.nameZh}</div>
+    </div>
+  `).join('');
+}
+
+function setLevel(el) {
+  document.querySelectorAll('.level-pill').forEach(b => {
+    b.className = 'level-pill';
+  });
+  currentLevel = el.dataset.level;
+  el.classList.add('active-' + currentLevel);
+}
+
+// ══════════════════════════════════
+// READING
+// ══════════════════════════════════
+async function startReading(topicId) {
+  currentTopic = TOPICS.find(t => t.id === topicId);
+  questions = []; currentQ = 0; answers = {}; scores = {}; bilingualOn = false;
+
+  showScreen('reading');
+
+  // Reset UI
+  document.getElementById('p-title').textContent = '正在加载…';
+  document.getElementById('p-title-zh').textContent = '';
+  document.getElementById('p-meta').innerHTML = '';
+  document.getElementById('p-body').innerHTML = '';
+  document.getElementById('q-counter').textContent = '— / —';
+  document.getElementById('progress-dots').innerHTML = '';
+  document.getElementById('panel-body').innerHTML = `
+    <div class="loading-state"><div class="spinner"></div><div>AI 正在生成文章与题目…</div></div>`;
+  const btn = document.getElementById('bilingual-btn');
+  btn.textContent = '中英双语 OFF'; btn.classList.remove('on');
+
+  await generateContent();
+}
+
+async function generateContent() {
+  const diffDesc = {
+    SAT:   'SAT Reading section: complex syntax, college-level vocabulary, social sciences / science topics',
+    TOEFL: 'TOEFL Academic Reading: academic register, scientific topics, inference and detail questions',
+    AP:    'AP exam reading: rhetorical analysis, evidence-based reasoning, complex argument structure',
+    IB:    'IB exam: sophisticated analysis, global perspectives, nuanced language use'
+  }[currentLevel];
+
+  const prompt = `You are an expert ${currentLevel} English reading test creator. Generate a bilingual reading comprehension exercise. Return ONLY valid JSON, no markdown, no explanation.
+
+JSON format:
+{
+  "title": "English article title",
+  "titleZh": "中文标题",
+  "wordCount": 420,
+  "topic": "${currentTopic.name}",
+  "paragraphs": [
+    {
+      "en": "English paragraph text. Mark 5 vocabulary words total across all paragraphs using: <v w='word' p='pos' d='English definition'>word</v>",
+      "zh": "这段的中文翻译"
+    }
+  ],
+  "questions": [
+    {
+      "type": "Main Idea",
+      "en": "Question in English",
+      "zh": "中文问题",
+      "options": ["A. ...", "B. ...", "C. ...", "D. ..."],
+      "optionsZh": ["A. 中文选项", "B. ...", "C. ...", "D. ..."],
+      "answer": 0,
+      "explanation": "English explanation (2-3 sentences with passage evidence)",
+      "explanationZh": "中文解析（2-3句，引用原文证据）"
+    }
+  ]
+}
+
+Rules:
+- EXACTLY 4 paragraphs, each 80-110 words
+- EXACTLY 5 questions: Main Idea, Vocabulary in Context, Inference, Detail, Author's Purpose
+- Difficulty: ${diffDesc}
+- Topic: ${currentTopic.name} (${currentTopic.nameZh})
+- Vocabulary tags: scatter 5 total across paragraphs, pos values: noun/verb/adj/adv
+- answer is 0-based index of correct option
+- All content intellectually engaging for high school students aged 15-18`;
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 2500,
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
+    const data = await res.json();
+    const raw = data.content.map(b => b.text || '').join('').trim();
+    const clean = raw.replace(/^```json\s*/,'').replace(/\s*```$/,'').trim();
+    const parsed = JSON.parse(clean);
+    renderPassage(parsed);
+    questions = parsed.questions;
+    renderQuestion(0);
+  } catch (err) {
+    console.error(err);
+    useFallback();
+  }
+}
+
+function renderPassage(data) {
+  document.getElementById('p-title').textContent = data.title;
+  document.getElementById('p-title-zh').textContent = data.titleZh || '';
+  document.getElementById('p-meta').innerHTML = `
+    <span class="meta-tag" style="background:var(--blue);color:var(--blue-t)">${data.topic}</span>
+    <span class="meta-tag" style="background:var(${levelColor(currentLevel)});color:var(${levelText(currentLevel)})">${currentLevel}</span>
+    <span class="meta-tag" style="background:var(--bg2);color:var(--text-soft)">${data.wordCount || '~420'} words</span>
+  `;
+
+  const body = document.getElementById('p-body');
+  body.innerHTML = '';
+
+  (data.paragraphs || []).forEach(para => {
+    // en paragraph
+    const pEn = document.createElement('p');
+    let enHtml = (para.en || '').replace(/<v w='([^']+)' p='([^']+)' d='([^']+)'>([^<]+)<\/v>/g,
+      (_, w, p, d, display) =>
+        `<span class="vocab-word" data-w="${w}" data-p="${p}" data-d="${d}">${display}</span>`
+    );
+    pEn.innerHTML = enHtml;
+    body.appendChild(pEn);
+
+    // zh paragraph
+    const pZh = document.createElement('div');
+    pZh.className = 'para-zh';
+    pZh.textContent = para.zh || '';
+    body.appendChild(pZh);
+  });
+
+  setupVocabTooltips();
+}
+
+function levelColor(l) {
+  return { SAT:'--blue', TOEFL:'--teal', AP:'--purple', IB:'--amber' }[l] || '--blue';
+}
+function levelText(l) {
+  return { SAT:'--blue-t', TOEFL:'--teal-t', AP:'--purple-t', IB:'--amber-t' }[l] || '--blue-t';
+}
+
+// ── BILINGUAL TOGGLE ──
+function toggleBilingual() {
+  bilingualOn = !bilingualOn;
+  const btn = document.getElementById('bilingual-btn');
+  const body = document.getElementById('p-body');
+  if (bilingualOn) {
+    body.classList.add('bilingual-on');
+    document.querySelectorAll('.question-text-zh').forEach(el => el.style.display = 'block');
+    btn.textContent = '中英双语 ON'; btn.classList.add('on');
+  } else {
+    body.classList.remove('bilingual-on');
+    document.querySelectorAll('.question-text-zh').forEach(el => el.style.display = 'none');
+    btn.textContent = '中英双语 OFF'; btn.classList.remove('on');
+  }
+}
+
+// ── VOCAB TOOLTIPS ──
+function setupVocabTooltips() {
+  const tip = document.getElementById('tooltip');
+  document.querySelectorAll('.vocab-word').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      const alreadySaved = vocabBook.some(v => v.word === el.dataset.w);
+      tip.innerHTML = `
+        <div class="t-word">${el.dataset.w}</div>
+        <div class="t-pos">${el.dataset.p}</div>
+        <div>${el.dataset.d}</div>
+        <span class="t-save" onclick="saveVocabWord('${el.dataset.w}','${el.dataset.p}','${el.dataset.d.replace(/'/g,"\\'")}')">
+          ${alreadySaved ? '✓ 已保存' : '+ 加入生词本'}
+        </span>`;
+      tip.classList.add('show');
+    });
+    el.addEventListener('mousemove', e => {
+      tip.style.left = (e.clientX + 16) + 'px';
+      tip.style.top  = (e.clientY - 8) + 'px';
+    });
+    el.addEventListener('mouseleave', () => tip.classList.remove('show'));
+  });
+}
+
+function saveVocabWord(word, pos, def) {
+  if (!vocabBook.some(v => v.word === word)) {
+    vocabBook.push({ word, pos, def, topic: currentTopic?.name || '', date: new Date().toLocaleDateString() });
+    save('readup_vocab', vocabBook);
+    updateBadges();
+  }
+  document.getElementById('tooltip').classList.remove('show');
+}
+
+// ── QUESTIONS ──
+const Q_COLORS = {
+  'Main Idea': '--blue', 'Vocabulary in Context': '--amber',
+  'Inference': '--purple', 'Detail': '--teal', "Author's Purpose": '--green'
+};
+const Q_TEXT_COLORS = {
+  'Main Idea': '--blue-t', 'Vocabulary in Context': '--amber-t',
+  'Inference': '--purple-t', 'Detail': '--teal-t', "Author's Purpose": '--green-t'
+};
+
+function renderQuestion(idx) {
+  if (!questions.length) return;
+  const q = questions[idx];
+  currentQ = idx;
+  const total = questions.length;
+  const isAnswered = answers[idx] !== undefined;
+
+  document.getElementById('q-counter').textContent = `${idx+1} / ${total}`;
+
+  // Progress dots
+  document.getElementById('progress-dots').innerHTML = questions.map((_, i) => {
+    let cls = 'dot';
+    if (scores[i] === true) cls += ' correct';
+    else if (scores[i] === false) cls += ' wrong';
+    else if (i === idx) cls += ' current';
+    return `<div class="${cls}"></div>`;
+  }).join('');
+
+  const typeColor = Q_COLORS[q.type] || '--blue';
+  const typeText  = Q_TEXT_COLORS[q.type] || '--blue-t';
+
+  document.getElementById('panel-body').innerHTML = `
+    <span class="q-type-tag" style="background:var(${typeColor});color:var(${typeText})">${q.type || 'Question'}</span>
+    <div class="question-text">Q${idx+1}. ${q.en || q.q}</div>
+    <div class="question-text-zh" style="display:${bilingualOn?'block':'none'}">${q.zh || ''}</div>
+    <div class="options">
+      ${(q.options || []).map((opt, i) => {
+        let cls = 'option';
+        if (isAnswered) {
+          if (i === q.answer) cls += ' correct';
+          else if (i === answers[idx]) cls += ' wrong';
+        }
+        return `<button class="${cls}" onclick="selectAnswer(${i})" ${isAnswered?'disabled':''}>${opt}</button>`;
+      }).join('')}
+    </div>
+    <div class="explanation ${isAnswered ? 'show' : ''}" id="expl">
+      <strong>💡 解析</strong>
+      ${q.explanation || ''}
+      ${q.explanationZh ? `<div style="margin-top:8px;padding-top:8px;border-top:1px solid var(--amber-b);font-style:italic">${q.explanationZh}</div>` : ''}
+    </div>
+    <div class="nav-row">
+      <button class="btn" onclick="renderQuestion(${idx-1})" ${idx===0?'disabled':''}>← Prev</button>
+      ${idx < total-1
+        ? `<button class="btn btn-primary" onclick="renderQuestion(${idx+1})">Next →</button>`
+        : `<button class="btn btn-primary" onclick="showScore()">查看成绩</button>`
+      }
+    </div>
+  `;
+}
+
+function selectAnswer(optIdx) {
+  if (answers[currentQ] !== undefined) return;
+  answers[currentQ] = optIdx;
+  const correct = optIdx === questions[currentQ].answer;
+  scores[currentQ] = correct;
+
+  // Save to wrong items if incorrect
+  if (!correct) {
+    const q = questions[currentQ];
+    const alreadyExists = wrongItems.some(w => w.qen === q.en);
+    if (!alreadyExists) {
+      wrongItems.push({
+        topic: currentTopic.name, level: currentLevel,
+        qen: q.en || q.q, qzh: q.zh || '',
+        options: q.options, optionsZh: q.optionsZh || [],
+        answer: q.answer, selected: optIdx,
+        explanation: q.explanation, explanationZh: q.explanationZh || '',
+        date: new Date().toLocaleDateString()
+      });
+      save('readup_wrong', wrongItems);
+      updateBadges();
+    }
+  }
+  renderQuestion(currentQ);
+}
+
+function showScore() {
+  const total = questions.length;
+  const correct = Object.values(scores).filter(Boolean).length;
+  const pct = Math.round(correct / total * 100);
+  const msg = pct >= 80 ? '🎯 优秀！' : pct >= 60 ? '📚 良好，继续加油' : '💪 需要多加练习';
+
+  // Final dots
+  document.getElementById('progress-dots').innerHTML = questions.map((_, i) => {
+    let cls = 'dot';
+    if (scores[i] === true) cls += ' correct';
+    else cls += ' wrong';
+    return `<div class="${cls}"></div>`;
+  }).join('');
+
+  document.getElementById('q-counter').textContent = `${correct} / ${total}`;
+
+  document.getElementById('panel-body').innerHTML = `
+    <div class="score-card">
+      <div class="score-ring">${pct}%</div>
+      <div style="font-weight:700;font-size:16px;margin-bottom:8px">${msg}</div>
+      <div class="score-breakdown">
+        <span class="score-chip" style="background:var(--green);color:var(--green-t)">✓ ${correct} 正确</span>
+        <span class="score-chip" style="background:var(--rose);color:var(--rose-t)">✗ ${total-correct} 错误</span>
+      </div>
+      <button class="btn btn-primary" style="width:100%;margin-bottom:8px" onclick="startReading('${currentTopic.id}')">再练一次</button>
+      <button class="btn" style="width:100%;margin-bottom:8px" onclick="showScreen('home')">选择其他主题</button>
+      <button class="btn" style="width:100%" onclick="showScreen('review')">查看错题回顾 →</button>
+    </div>
+  `;
+}
+
+// ══════════════════════════════════
+// VOCAB BOOK
+// ══════════════════════════════════
+function renderVocab() {
+  const c = document.getElementById('vocab-content');
+  if (!vocabBook.length) {
+    c.innerHTML = `<div class="vocab-empty"><div class="empty-icon">⭐</div><div>生词本是空的</div><div style="font-size:13px;margin-top:8px;color:var(--text-soft)">阅读时将鼠标悬停在高亮单词上，点击「加入生词本」</div></div>`;
+    return;
+  }
+  c.innerHTML = `<div class="vocab-grid">
+    ${vocabBook.map((v, i) => `
+      <div class="vocab-item">
+        <button class="vocab-del" onclick="deleteVocab(${i})">✕</button>
+        <div class="v-word">${v.word}</div>
+        <div class="v-pos">${v.pos}</div>
+        <div class="v-def">${v.def}</div>
+        <div class="v-from">📖 ${v.topic} · ${v.date}</div>
+      </div>
+    `).join('')}
+  </div>`;
+}
+
+function deleteVocab(i) {
+  vocabBook.splice(i, 1);
+  save('readup_vocab', vocabBook);
+  updateBadges();
+  renderVocab();
+}
+
+function clearVocab() {
+  if (confirm('确定清空所有生词？')) {
+    vocabBook = []; save('readup_vocab', vocabBook);
+    updateBadges(); renderVocab();
+  }
+}
+
+// ══════════════════════════════════
+// WRONG REVIEW
+// ══════════════════════════════════
+function renderReview() {
+  const c = document.getElementById('review-content');
+  if (!wrongItems.length) {
+    c.innerHTML = `<div class="review-empty"><div class="empty-icon">🎉</div><div>暂无错题</div><div style="font-size:13px;margin-top:8px;color:var(--text-soft)">答错的题目会自动保存在这里</div></div>`;
+    return;
+  }
+  c.innerHTML = `<div class="review-list">
+    ${wrongItems.map((w, i) => `
+      <div class="review-card">
+        <div class="review-card-header">
+          <span class="rc-topic">${w.topic}</span>
+          <span class="rc-level">${w.level} · ${w.date}</span>
+        </div>
+        <div class="review-card-body">
+          <div class="rc-question">${w.qen}</div>
+          ${w.qzh ? `<div class="rc-question-zh">${w.qzh}</div>` : ''}
+          <div class="rc-options">
+            ${(w.options||[]).map((opt, oi) => {
+              let cls = 'rc-option';
+              if (oi === w.answer) cls += ' is-correct';
+              else if (oi === w.selected) cls += ' was-wrong';
+              return `<div class="${cls}">${opt}</div>`;
+            }).join('')}
+          </div>
+          <div class="rc-expl">💡 ${w.explanation}${w.explanationZh ? `<div style="margin-top:8px;padding-top:8px;border-top:1px solid var(--amber-b);font-style:italic">${w.explanationZh}</div>` : ''}</div>
+          <button class="rc-del-btn" onclick="deleteWrong(${i})">已掌握，移除</button>
+        </div>
+      </div>
+    `).join('')}
+  </div>`;
+}
+
+function deleteWrong(i) {
+  wrongItems.splice(i, 1);
+  save('readup_wrong', wrongItems);
+  updateBadges(); renderReview();
+}
+
+function clearWrong() {
+  if (confirm('确定清空所有错题？')) {
+    wrongItems = []; save('readup_wrong', wrongItems);
+    updateBadges(); renderReview();
+  }
+}
+
+// ══════════════════════════════════
+// FALLBACK
+// ══════════════════════════════════
+function useFallback() {
+  const data = {
+    title: 'The Science of Memory Consolidation',
+    titleZh: '记忆巩固的科学原理',
+    wordCount: 420, topic: currentTopic?.name || 'Science',
+    paragraphs: [
+      { en: `Memory consolidation is the process by which <v w='transient' p='adj' d='lasting only briefly; not permanent'>transient</v> short-term memories are transformed into stable long-term memories. This complex neurological process occurs primarily during sleep, when the hippocampus replays the day's experiences and transfers them to the neocortex for permanent storage.`, zh: '记忆巩固是将短暂的短期记忆转化为稳定的长期记忆的过程。这一复杂的神经过程主要在睡眠期间发生，此时海马体会重放当天的经历，并将其传输到新皮质永久储存。' },
+      { en: `The <v w='synaptic' p='adj' d='relating to the junctions between nerve cells'>synaptic</v> consolidation hypothesis posits that newly formed memories depend on fragile synaptic connections that must be strengthened through repeated activation. Each time a memory is recalled, it becomes temporarily destabilized before being re-encoded in a potentially modified form.`, zh: '突触巩固假说认为，新形成的记忆依赖于脆弱的突触连接，这些连接必须通过反复激活来加强。每次记忆被唤起时，它会暂时变得不稳定，然后以可能经过修改的形式重新编码。' },
+      { en: `Cognitive scientists now advocate for "spaced repetition"—a technique that leverages the brain's reconsolidation windows to strengthen memory traces more efficiently. Studies have demonstrated that students who review material at increasing intervals outperform peers by margins of 30 to 40 percent on <v w='standardized' p='adj' d='made consistent according to a fixed standard'>standardized</v> assessments.`, zh: '认知科学家现在提倡"间隔重复"——一种利用大脑重巩固窗口更高效强化记忆痕迹的技术。研究表明，以递增间隔复习材料的学生在标准化测试中的表现比同学高出30%至40%。' },
+      { en: `Furthermore, emotional arousal significantly <v w='modulates' p='verb' d='regulates or adjusts the strength of something'>modulates</v> memory consolidation. The amygdala communicates directly with the hippocampus, causing emotionally salient events to be encoded with greater <v w='fidelity' p='noun' d='accuracy and exactness in reproducing something'>fidelity</v>. This evolutionary adaptation explains why individuals vividly recall emotionally charged experiences while forgetting mundane ones.`, zh: '此外，情绪唤醒对记忆巩固有显著的调节作用。杏仁核直接与海马体沟通，使情感显著的事件以更高的精确度被编码。这种进化适应解释了为什么人们能清晰地回忆情感强烈的经历，而忘记平凡的事情。' }
+    ],
+    questions: [
+      { type:'Main Idea', en:'What is the primary purpose of this passage?', zh:'本文的主要目的是什么？', options:['A. To argue that sleep deprivation destroys memories','B. To explain the neuroscience of memory and its educational implications','C. To propose a cure for memory disorders','D. To criticize traditional memorization techniques'], optionsZh:['A. 论证睡眠不足会破坏记忆','B. 解释记忆的神经科学及其教育意义','C. 提出记忆障碍的治疗方案','D. 批判传统记忆技巧'], answer:1, explanation:'The passage surveys memory consolidation science and connects it to practical educational strategies like spaced repetition, serving primarily an informative and explanatory purpose.', explanationZh:'文章介绍了记忆巩固的科学原理，并将其与间隔重复等实际教育策略相结合，主要目的是信息传达和解释说明。' },
+      { type:'Vocabulary in Context', en:'The word "transient" most nearly means:', zh:'"transient"一词最接近的含义是：', options:['A. Permanent and stable','B. Brief and temporary','C. Complex and layered','D. Emotional and vivid'], optionsZh:['A. 永久且稳定的','B. 短暂且临时的','C. 复杂且多层次的','D. 情感丰富且生动的'], answer:1, explanation:'"Transient" short-term memories are contrasted with "stable long-term memories," confirming that transient means brief or temporary.', explanationZh:'"短暂的"短期记忆与"稳定的"长期记忆形成对比，证实了transient意为短暂或临时的。' },
+      { type:'Inference', en:'What can be inferred about reconsolidation from the passage?', zh:'从文中可以推断出关于重巩固的什么信息？', options:['A. It always improves memory accuracy','B. It occurs only during deep sleep','C. It leaves memories open to modification when recalled','D. It requires emotional arousal to activate'], optionsZh:['A. 它总能提高记忆准确性','B. 它只在深度睡眠中发生','C. 记忆被唤起时容易被修改','D. 它需要情绪唤醒才能激活'], answer:2, explanation:'The passage states memories become "temporarily destabilized" during reconsolidation and can be "re-encoded in a potentially modified form," implying they are open to change.', explanationZh:'文章指出记忆在重巩固过程中变得"暂时不稳定"，并可能"以修改后的形式重新编码"，这意味着记忆容易被改变。' },
+      { type:'Detail', en:'According to the passage, by how much do spaced repetition students outperform peers?', zh:'根据文章，间隔重复的学生比同学的表现高出多少？', options:['A. 10 to 20 percent','B. 20 to 25 percent','C. 30 to 40 percent','D. 50 to 60 percent'], optionsZh:['A. 10%至20%','B. 20%至25%','C. 30%至40%','D. 50%至60%'], answer:2, explanation:'The passage explicitly states students using spaced repetition "outperform peers by margins of 30 to 40 percent on standardized assessments."', explanationZh:'文章明确指出，使用间隔重复的学生"在标准化测试中的表现比同学高出30%至40%"。' },
+      { type:"Author's Purpose", en:'Why does the author mention the amygdala in the final paragraph?', zh:'作者在最后一段提到杏仁核的目的是什么？', options:['A. To introduce a new theory contradicting earlier claims','B. To explain why emotional memories are retained more vividly','C. To argue that emotion harms academic performance','D. To provide a medical treatment for poor memory'], optionsZh:['A. 引入与前文相矛盾的新理论','B. 解释为什么情感记忆保留得更清晰','C. 论证情绪会损害学业表现','D. 为记忆力差提供医疗方案'], answer:1, explanation:'The author introduces the amygdala to explain the mechanism behind vivid emotional memories, supporting the broader argument about how memory encoding works differently for emotional versus mundane events.', explanationZh:'作者提到杏仁核是为了解释情感记忆鲜明的机制，支持文章关于情感事件与平凡事件记忆编码方式不同的主要论点。' }
+    ]
+  };
+  renderPassage(data);
+  questions = data.questions;
+  renderQuestion(0);
+}
+
+// ══════════════════════════════════
+// INIT
+// ══════════════════════════════════
+renderHome();
+updateBadges();
+</script>
+</body>
+</html>
